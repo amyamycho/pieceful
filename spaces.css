@@ -23,7 +23,7 @@
 
 body {
   font-family: 'Pretendard', sans-serif !important;
-position:relative;
+  background-color: #f5f5f5;
 }
 
 /* HEADER */
@@ -160,82 +160,121 @@ position:relative;
   }
 }
 
-
-/* 메인비주얼 */
-.visual {
-    width: 100%;
-    aspect-ratio: 2048 / 1996;
-    background-image: url("mainvisual.png");
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-position: center top;
-    position: relative;
+  
+  .grid-container {
+    padding-top: 70px;
+    width: 100vw;      /* 화면 전체 */
+    margin: 0;
 }
 
-/* PC — 이미지 위 오버레이 (1025px 이상) */
-@media (min-width: 1025px) {
-    .visual-text {
-      position: absolute;
-      bottom:40vh;
-      /* top:1650px; */
-      right: 60px;
-      /* border:1px solid black;
-   */
-      width: auto;
-      font-family: "Pretendard";
-      font-size: 20px;
-      line-height: 1.7;
-      color: #FF560D;
-      font-weight: 400;
-      text-align: left;
-  
-      z-index: 10;
-      pointer-events: none;
-    }
-  
-    .visual {
-      position: relative;
-    }
-  }
-  @media (min-width:1024px) and (max-width: 1250px){
-    .visual-text{
-      bottom:35vh;
-    }
-  }
-  /* 태블릿 + 모바일 (1024px 이하) — 이미지 아래로 분리 */
-  @media (max-width: 1024px) {
-    .visual-text {
-      position: static;
-      transform: none;
-      bottom:20vh;
-      margin: 40px auto 0;
-      width: 85%;
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.8;
-      color: #FF560D;
-      padding-bottom: 40px;
-      font-weight: 400;
-    }
-  }
-  
-  /* 초소형 (480px 이하) */
-  @media (max-width: 480px) {
-    .visual-text {
-      width: 90%;
-      font-size: 12px;
-      line-height: 1.8;
-      padding-bottom: 40px;
-    }
-  }
-  
+.row {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 기본: 좁은상자 + 넓은상자 */
+    /* gap: 20px; */
+    /* margin-bottom: 20px; */
+}
 
-  
+/* 두 번째 줄 같은 반대배치 */
+.row.reverse {
+    grid-template-columns: 2fr 1fr;
+}
+
+.box {
+    height: 300px;
+    padding: 20px;
+    color: #000;
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
+.box-text {
+    position: relative;
+    padding: 40px;
+    display: block !important; /* flex를 완전히 무효화 */
+    text-align: left;
+    justify-content: flex-end;
+}
 
- /* --------푸터--------- */
-footer {
+/* p는 박스 아래에 고정됨 */
+.box-text h2 {
+    position: absolute;
+    left: 40px;
+    bottom: calc(40px + 1.6em * 3);  
+    font-size: 24px;
+    margin: 0;
+    color: #FF560D;
+}
+
+.box-text p {
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 400;
+    color: #666666;
+}
+
+/* 이미지 박스 */
+
+.box-image {
+    padding: 0;
+    background-image: var(--normal);
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.3s ease-out;
+}
+
+/* hover 시 이미지 교체 */
+.box-image:hover {
+    background-image: var(--hover);
+}
+
+.box-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* 반응형 */
+@media (max-width: 900px) {
+    .row, .row.reverse {
+        grid-template-columns: 1fr;
+    }
+    .box { height: 200px; }
+}
+  
+  
+  /* 반응형 */
+  /* @media (max-width: 1500px) {
+    .face-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 1000px) {
+    .face-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .face-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  } */
+  
+  
+   /* --------푸터--------- */
+   footer {
     background-color: #FF560D; 
     color: #fff;
     padding: 100px 40px 30px 40px; 
@@ -274,7 +313,7 @@ footer {
     line-height: 1.8;
     font-weight: 500;
   }
-
+  
   @media (max-width: 1024px) {
     footer {
       padding: 80px 30px 25px 30px;
@@ -323,3 +362,50 @@ footer {
     }
   }
   
+  /* 화면 전체를 꽉 채우는 컨테이너 */
+.grid-container {
+    width: 100vw;      /* 화면 전체 */
+    margin: 0;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 좁은 + 넓은 */
+                         /* 박스끼리 간격 */
+    /* margin-bottom: 20px; */
+}
+
+.row.reverse {
+    grid-template-columns: 2fr 1fr; /* 넓은 + 좁은 */
+}
+
+.box {
+    height: 400px;
+    padding: 0;
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 박스 크기에 꽉 채우기 */
+  display: block;    /* 이미지 아래 생기는 여백 제거 */
+}
+
+
+
+/* 반응형 */
+@media (max-width: 900px) {
+    .row, .row.reverse {
+        grid-template-columns: 1fr;
+    }
+    .box { height: 200px; }
+}
+
+html, body {
+    overflow-x: hidden;
+  }
