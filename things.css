@@ -274,7 +274,7 @@ body {
 
     .right {
         height: 50vh;
-        background-size: 60px; /* 모바일에서 패턴 조금 더 촘촘하게 */
+        background-size: 360px; /* 모바일에서 패턴 조금 더 촘촘하게 */
     }
 }
 
